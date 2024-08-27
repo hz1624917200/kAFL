@@ -1,0 +1,15 @@
+/home/zheng/kAFL/kafl/qemu/x86_64-softmmu/qemu-system-x86_64
+        -enable-kvm
+        -machine kAFL64-v1
+        -cpu kAFL64-Hypervisor-v1,+vmx
+        -no-reboot
+        -net none
+        -display none
+        -chardev socket,server,id=nyx_socket,path=/dev/shm/kafl_zheng/interface_0
+        -device nyx,chardev=nyx_socket,workdir=/dev/shm/kafl_zheng,worker_id=0,bitmap_size=65536,input_buffer_size=131072
+        -device isa-serial,chardev=kafl_serial
+        -chardev file,id=kafl_serial,mux=on,path=/dev/shm/kafl_zheng/serial_00.log
+        -m 4096
+        -drive file=/home/zheng/.local/share/libvirt/images/windows_x86_64_vagrant-kafl-windows.img
+        -monitor unix:/tmp/monitor.sock,server,nowait
+        -fast_vm_reload path=/dev/shm/kafl_zheng/snapshot/,load=off

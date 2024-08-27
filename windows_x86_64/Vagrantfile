@@ -27,9 +27,16 @@ Vagrant.configure("2") do |config|
         libvirt.uri = "qemu:///session"
         # spice is better than VNC (mouse handling)
         libvirt.graphics_type = "spice"
-        libvirt.cpus = 4
-        libvirt.cputopology :sockets => '1', :cores => '4', :threads => '1'
-        libvirt.memory = 4096
+        # libvirt.graphics_type = "vnc"
+        libvirt.graphics_port = 5910
+        libvirt.graphics_ip = "0.0.0.0"
+        # libvirt.input :type => "mouse", :bus => "usb"
+        # libvirt.input :type => "keyboard", :bus => "usb"
+
+        libvirt.cpus = 8
+        libvirt.cputopology :sockets => '1', :cores => '4', :threads => '2'
+        libvirt.memory = 8192
+        	
     end
 
     # workaround https://github.com/hashicorp/vagrant/issues/13193
